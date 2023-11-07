@@ -1,5 +1,7 @@
 import { localStorageData } from "./metadata.js"
 import { getDataFromLocalStorage, setDataFromLocalStorage } from "./utils.js"
+import { Button, TextField } from '@mui/material';
+
 import './css/form.css'
 
 function Form({ data }) {
@@ -33,14 +35,11 @@ function Form({ data }) {
 
   return (
     <form onSubmit={handleSubmit}>
+      <TextField id="name" name="name" label="Titulo" variant="standard" />
+      <TextField id="url" name="url" label="Enlace" variant="standard" />
 
-      <label htmlFor="name">Name</label>
-      <input type="text" name="name" id="name" />
+      <Button type="submit" variant="contained">Guardar</Button>
 
-      <label htmlFor="url">Url</label>
-      <input type="url" name='url' id='url' required />
-
-      <button type="submit">asd</button>
     </form>
   )
 }

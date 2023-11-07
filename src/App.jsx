@@ -1,13 +1,24 @@
 import { useState, useEffect } from 'react'
 import { localStorageData } from './metadata.js'
-import { getDataFromLocalStorage, setDataFromLocalStorage } from './utils.js'
+import { getDataFromLocalStorage } from './utils.js'
+import { List, Link } from '@mui/material'
+
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
 import Form from './form'
 
 import './css/list.css'
 
 function App() {
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
+
   const [value, setValue] = useState([])
-  const [v, setV] = useState()
 
   useEffect(() => {
     if (!localStorage.getItem(localStorageData.name)) {
@@ -24,27 +35,36 @@ function App() {
 
   return (
     <>
-      <section>
-        <Form data={handleSubmit} />
+      <ThemeProvider theme={darkTheme}>
+        <section id='sec'>
+          <Form data={handleSubmit} />
 
-        <div>
-          <ul>
-            {value.length ? value.map(({ name, url, id, image }, index) => {
-              const zebra = index % 2 === 0 ? '#ffffff' : '#F5F5F5'
+          <List
+            sx={{
+              width: '100%',
+              maxWidth: 360,
+              bgcolor: 'background.paper',
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'auto',
+              maxHeight: 400,
+              '& ul': { padding: 0 },
+            }}
+            subheader={<li />}
+          >
+            {value.length ? value.map(({ name, url, id }, index) => {
+              const zebra = index % 2 === 0 ? '#121212' : '#171717'
 
               return (
-                <li className='list' key={id} style={{ backgroundColor: zebra }}>
-                  <div>
-                    <a href={url}>{name}</a>
 
-                  </div>
-                </li>
+                <Link key={id} bgcolor={zebra} padding={2} href={url} underline='hover' >{name}</Link>
+
               )
             }) : "Cargando"}
-          </ul>
-        </div>
-      </section>
-
+          </List>
+        </section>
+      </ThemeProvider>
     </>
   )
 }

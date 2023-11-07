@@ -1,3 +1,9 @@
 .list {
   padding: 10px;
 }
+
+#sec {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
