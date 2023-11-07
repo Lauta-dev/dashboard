@@ -1,8 +1,21 @@
-# React + Vite
+![dashboard](./public/dashboard-ten-plum.vercel.app_.png)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Dashboard
 
-Currently, two official plugins are available:
+## Descripción
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Proyecto donde hago uso del local storage del navegador para guardar enlaces.
+
+El proyecto esta conectado a una API para hacer las consultas si no se especifica el nombre.
+
+## Tecnologías usanda
+
++ [React](https://es.react.dev/)
++ [Fl0.io](https://www.fl0.com/)
++ [Componente de React](https://mui.com/)
+
+## TODO
+
+- [ ] Supabase para autenticar con Google
+- [ ] Editar cada elemento
+- [ ] Borrar individualmente cada elemento
