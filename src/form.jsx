@@ -1,11 +1,11 @@
 import { localStorageData } from "./metadata.js"
-import { getDataFromLocalStorage, setDataFromLocalStorage } from "./utils.js"
+import { getDataFromLocalStorage } from "./utils.js"
 import { Button, TextField } from '@mui/material';
 
 import './css/form.css'
+import { fetching } from "./fetch.js";
 
 function Form({ data }) {
-
   async function handleSubmit(e) {
     e.preventDefault()
 
@@ -14,29 +14,15 @@ function Form({ data }) {
     }
 
     const dataInput = Object.fromEntries(new FormData(e.target))
-
-    if (!dataInput.name && !dataInput.url && !dataInput.url.startsWith('http')) {
-      return
-    }
-
-    const req = await fetch(`${import.meta.env.VITE_API_URL}${dataInput.url}`)
-    const { title, favicon } = await req.json()
-
-    const insert = {
-      name: title[1],
-      url: dataInput.url,
-    }
-
-    setDataFromLocalStorage({ insert })
+    await fetching({ dataInput })
 
     data(getDataFromLocalStorage())
-
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <TextField id="name" name="name" label="Titulo" variant="standard" />
-      <TextField id="url" name="url" label="Enlace" variant="standard" />
+      <TextField id="url" name="url" label="Enlace" variant="standard" required />
 
       <Button type="submit" variant="contained">Guardar</Button>
 

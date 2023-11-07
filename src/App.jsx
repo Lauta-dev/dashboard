@@ -1,24 +1,21 @@
 import { useState, useEffect } from 'react'
 import { localStorageData } from './metadata.js'
 import { getDataFromLocalStorage } from './utils.js'
-import { List, Link } from '@mui/material'
+import { List, Link, Button } from '@mui/material'
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 
 import Form from './form'
 
-import './css/list.css'
-
 function App() {
+  const [value, setValue] = useState([])
+  const [removeAllItems, setRemoveAllItems] = useState(false)
 
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
     },
   });
-
-  const [value, setValue] = useState([])
 
   useEffect(() => {
     if (!localStorage.getItem(localStorageData.name)) {
@@ -39,10 +36,30 @@ function App() {
         <section id='sec'>
           <Form data={handleSubmit} />
 
+          {value.length && <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button onClick={() => {
+              setRemoveAllItems(!removeAllItems)
+            }} color="warning">Eliminar todo</Button>
+
+            {removeAllItems && <div>
+              <Button color="error" onClick={() => {
+                localStorage.clear(localStorageData.name)
+                setValue([])
+              }}>SI</Button>
+
+              <Button onClick={() => {
+                setRemoveAllItems(false)
+              }}>NO</Button>
+
+            </div>}
+
+          </div>
+          }
+
           <List
             sx={{
               width: '100%',
-              maxWidth: 360,
+              maxWidth: 560,
               bgcolor: 'background.paper',
               position: 'relative',
               display: 'flex',
@@ -57,9 +74,7 @@ function App() {
               const zebra = index % 2 === 0 ? '#121212' : '#171717'
 
               return (
-
                 <Link key={id} bgcolor={zebra} padding={2} href={url} underline='hover' >{name}</Link>
-
               )
             }) : "Cargando"}
           </List>
